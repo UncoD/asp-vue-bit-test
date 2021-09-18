@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>AspVueBit</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClientApp\node_modules - Copy\**" />
+    <Content Remove="ClientApp\node_modules - Copy\**" />
+    <EmbeddedResource Remove="ClientApp\node_modules - Copy\**" />
+    <None Remove="ClientApp\node_modules - Copy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="VueCliMiddleware" Version="5.0.0" />
+  </ItemGroup>
+
+
+</Project>
