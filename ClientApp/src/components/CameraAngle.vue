@@ -1,7 +1,7 @@
 <template>
   <div class="calculator">
     <div class="camera-params">
-      <h1>Рассчет вертикального угла наклона камеры</h1>
+      <h1>Рассчет угла вертикального наклона камеры</h1>
       <img class="info-img" src="@/assets/image.png">
       <div class="params">
         <div class="param">
