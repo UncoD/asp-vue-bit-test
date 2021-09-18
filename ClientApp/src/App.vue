@@ -92,6 +92,11 @@ button {
     &:active {
       background-color: #ffd138;
     }
+    &:disabled {
+      background-color: #ffd400;
+      cursor: default;
+      opacity: 0.5;
+    }
   }
   &.secondary {
     background-color: #f1f5f9;

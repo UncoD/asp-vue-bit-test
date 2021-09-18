@@ -9,7 +9,7 @@
           <input
             v-model="distToObject"
             name="object"
-            type="number"
+            @input="value => this.distToObject = parseNumber(value, false)"
             @change="clearAnswer"
           >
         </div>
@@ -18,7 +18,7 @@
           <input
             v-model="cameraHeight"
             name="camera"
-            type="number"
+            @input="value => this.cameraHeight = parseNumber(value, true)"
             @change="clearAnswer"
           >
         </div>
@@ -30,6 +30,7 @@
         >Сбросить</button>
         <button
           class="btn primary"
+          :disabled="distToObject === '' || cameraHeight === ''"
           @click="calculateAngle"
         >Рассчет</button>
       </div>
@@ -38,7 +39,7 @@
       name="showanswer"
       v-on:enter="scrollToAnswer"
     >
-      <div v-if="answer" class="answer">
+      <div v-if="answer !== null" class="answer">
         <div><b>Высота относительно человека {{ humanHeight }}см (B):</b> {{ heightAbovePerson }}см</div>
         <div><b>Угол наклона:</b> {{ (Math.round(answer * 100) / 100) }}°</div>
       </div>
@@ -69,7 +70,7 @@ export default {
       this.heightAbovePerson = null
     },
     calculateAngle() {
-      this.heightAbovePerson = parseInt(this.cameraHeight) - 160
+      this.heightAbovePerson = parseInt(this.cameraHeight) - this.humanHeight
       axios.get('/api/cameraanglecalculator', {
         params: {
           distanceToObject: this.distToObject,
@@ -84,6 +85,17 @@ export default {
         top: document.body.scrollHeight,
         behavior: "smooth"
       })
+    },
+    parseNumber(input, allowNegative) {
+      const regex = allowNegative ? /[^0-9.-]/g : /[^0-9.]/g
+      let result = input.target.value.replace(regex, '')
+      const firstDot = result.indexOf('.')
+      result = result.replace(/[.]/g, (val, index) => index === firstDot && index !== 0 ? val : '')
+      if (allowNegative) {
+        result = result.replace(/(?!^-)[-]/g, '')
+      }
+      return result
+        
     }
   },
 }
