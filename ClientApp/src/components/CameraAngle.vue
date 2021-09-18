@@ -39,14 +39,15 @@
       v-on:enter="scrollToAnswer"
     >
       <div v-if="answer" class="answer">
-        <div><b>Высота над человеком (B):</b> {{ heightAbovePerson }}см</div>
-        <div><b>Угол наклона:</b> {{ answer }}°</div>
+        <div><b>Высота относительно человека {{ humanHeight }}см (B):</b> {{ heightAbovePerson }}см</div>
+        <div><b>Угол наклона:</b> {{ (Math.round(answer * 100) / 100) }}°</div>
       </div>
     </transition>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'CameraAngle',
   data() {
@@ -54,7 +55,8 @@ export default {
       distToObject: 0,
       cameraHeight: 0,
       answer: null,
-      heightAbovePerson: null
+      heightAbovePerson: null,
+      humanHeight: 160
     }
   },
   methods: {
@@ -67,8 +69,15 @@ export default {
       this.heightAbovePerson = null
     },
     calculateAngle() {
-      this.answer = this.distToObject * this.cameraHeight
-      this.heightAbovePerson = parseInt(this.distToObject) + parseInt(this.cameraHeight)
+      this.heightAbovePerson = parseInt(this.cameraHeight) - 160
+      axios.get('/api/cameraanglecalculator', {
+        params: {
+          distanceToObject: this.distToObject,
+          cameraHeight: this.cameraHeight,
+          objectHeight: this.humanHeight
+        }
+      })
+      .then(res => this.answer = res.data)
     },
     scrollToAnswer() {
       window.scrollTo({
@@ -93,7 +102,7 @@ export default {
   z-index: 1;
 
   h1 {
-    margin: 0 0 25px;
+    margin: 0 0 20px;
   }
 
   .info-img {

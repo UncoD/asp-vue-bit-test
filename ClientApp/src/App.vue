@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import CameraAngle from './components/CameraAngle.vue'
 export default {
   name: 'App',
@@ -16,11 +15,7 @@ export default {
     return {
       weather: {}
     }
-  },
-  created() {
-    // axios.get('/api/weatherforecast')
-    //   .then(res => this.weather = res.data)
-  },
+  }
 }
 </script>
 
