@@ -133,6 +133,7 @@ export default {
     flex-direction: column;
     max-width: 300px;
     text-align: left;
+    width: 47%;
     &:last-child {
       margin-left: auto;
     }

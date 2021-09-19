@@ -1,6 +1,9 @@
+using System;
+using AspVueBit.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +28,12 @@ namespace AspVueBit
             services.AddControllers();
             services.AddMvc(options => options.SuppressAsyncSuffixInActionNames = false);
             services.AddSpaStaticFiles(opt => opt.RootPath = $"{_spaSourcePath}/dist");
+
+            services.AddDbContext<AppDbContext>(
+                dbContextOptions => dbContextOptions
+                    .UseMySql(Configuration.GetConnectionString("Default"),
+                        new MariaDbServerVersion(new Version(10, 5, 9)))
+            );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -51,14 +51,8 @@ input {
     -moz-appearance: textfield;
   }
 
-  &::placeholder {
-    color: #79818c;
-  }
   &:hover {
     border-color: #79818c;
-  }
-  &:not(:placeholder-shown) {
-    border-color: #818181;
   }
   &:focus, &:active {
     border-color: #367ee7;
@@ -70,7 +64,7 @@ input {
 
 label {
   color: #79818c;
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 8px;
 }
 
