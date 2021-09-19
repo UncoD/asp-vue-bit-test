@@ -3,13 +3,18 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>AspVueBit</RootNamespace>
+    <AssemblyName>AspVueBit</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="ClientApp\node_modules - Copy\**" />
+    <Compile Remove="Tests\**" />
     <Content Remove="ClientApp\node_modules - Copy\**" />
+    <Content Remove="Tests\**" />
     <EmbeddedResource Remove="ClientApp\node_modules - Copy\**" />
+    <EmbeddedResource Remove="Tests\**" />
     <None Remove="ClientApp\node_modules - Copy\**" />
+    <None Remove="Tests\**" />
   </ItemGroup>
 
   <ItemGroup>
